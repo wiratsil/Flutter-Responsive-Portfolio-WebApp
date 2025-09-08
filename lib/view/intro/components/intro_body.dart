@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../../res/constants.dart';
 import '../../../view model/responsive.dart';
 import 'animated_texts_componenets.dart';
@@ -43,24 +44,24 @@ class IntroBody extends StatelessWidget {
                   desktop: MyPortfolioText(start: 40, end: 50),
                   largeMobile: MyPortfolioText(start: 40, end: 35),
                   mobile: MyPortfolioText(start: 35, end: 30),
-                  tablet: MyPortfolioText(start: 50, end: 40)),
+                  tablet: MyPortfolioText(start: 50, end: 40)).animate().fade(duration: const Duration(milliseconds: 500)).slide(begin: const Offset(-1, 0)),
               if (kIsWeb && Responsive.isLargeMobile(context))
                 Container(
                   height: defaultPadding,
                   color: Colors.transparent,
                 ),
-              const CombineSubtitleText(),
+              const CombineSubtitleText().animate().fade(duration: const Duration(milliseconds: 500), delay: const Duration(milliseconds: 200)).slide(begin: const Offset(-1, 0)),
               const SizedBox(height: defaultPadding / 2),
               const Responsive(
                 desktop: AnimatedDescriptionText(start: 14, end: 15),
                 largeMobile: AnimatedDescriptionText(start: 14, end: 12),
                 mobile: AnimatedDescriptionText(start: 14, end: 12),
                 tablet: AnimatedDescriptionText(start: 17, end: 14),
-              ),
+              ).animate().fade(duration: const Duration(milliseconds: 500), delay: const Duration(milliseconds: 400)).slide(begin: const Offset(-1, 0)),
               const SizedBox(
                 height: defaultPadding * 2,
               ),
-              const DownloadButton(),
+              const DownloadButton().animate().fade(duration: const Duration(milliseconds: 500), delay: const Duration(milliseconds: 600)).slide(begin: const Offset(-1, 0)),
             ],
           ),
         ),

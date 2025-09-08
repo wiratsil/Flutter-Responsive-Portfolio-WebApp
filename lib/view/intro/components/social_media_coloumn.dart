@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_portfolio/view/intro/components/social_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,7 +15,7 @@ class SocialMediaIconColumn extends StatelessWidget {
         const SocialMediaIcon(icon: 'assets/icons/dribble.svg',),
         const SocialMediaIcon(icon: 'assets/icons/twitter.svg'),
         const SocialMediaIcon(icon: 'assets/icons/linkedin.svg'),
-      ],
+      ].animate(interval: const Duration(milliseconds: 200)).fade(duration: const Duration(milliseconds: 500)).slide(begin: const Offset(0, 1)),
     );
   }
 }

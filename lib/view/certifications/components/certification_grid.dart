@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import '../../../model/certificate_model.dart';
 import '../../../res/constants.dart';
@@ -39,7 +40,7 @@ class CertificateGrid extends StatelessWidget {
                     blurRadius: controller.hovers[index] ? 20 : 10,),
                 ]),
             child: CertificateStack(index: index)
-        ));
+        )).animate().fade(duration: const Duration(milliseconds: 500), delay: Duration(milliseconds: 100 * index));
       },
     );
   }

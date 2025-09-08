@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_portfolio/view%20model/responsive.dart';
 import 'package:flutter_portfolio/view/intro/components/side_menu_button.dart';
 import 'package:flutter_portfolio/view/main/components/connect_button.dart';
@@ -19,9 +20,9 @@ class TopNavigationBar extends StatelessWidget {
           ),
           // if(Responsive.isLargeMobile(context)) MenuButton(),
           const Spacer(flex: 2,),
-          if(!Responsive.isLargeMobile(context))  const NavigationButtonList(),
+          if(!Responsive.isLargeMobile(context))  const NavigationButtonList().animate().fadeIn(duration: const Duration(milliseconds: 500), delay: const Duration(milliseconds: 200)),
           const Spacer(flex: 2,),
-          const ConnectButton(),
+          const ConnectButton().animate().fadeIn(duration: const Duration(milliseconds: 500), delay: const Duration(milliseconds: 400)),
           const Spacer(),
         ],
       ),

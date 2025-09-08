@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_portfolio/view%20model/getx_controllers/certification_controller.dart';
 import 'package:flutter_portfolio/view/projects/components/title_text.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class Certifications extends StatelessWidget {
           if(Responsive.isLargeMobile(context))const SizedBox(
             height: defaultPadding,
           ),
-          const TitleText(prefix: 'Certifications & ', title: 'License'),
+          const TitleText(prefix: 'Certifications & ', title: 'License').animate().fade(duration: const Duration(milliseconds: 500)).slide(begin: const Offset(0, -1)),
           const SizedBox(
             height: defaultPadding,
           ),

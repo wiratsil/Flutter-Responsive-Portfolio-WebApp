@@ -4,8 +4,7 @@ import '../../../res/constants.dart';
 import '../../../view model/responsive.dart';
 
 class AnimatedImageContainer extends StatefulWidget {
-  const AnimatedImageContainer({Key? key, this.height = 300, this.width = 250})
-      : super(key: key);
+  const AnimatedImageContainer({super.key, this.height = 300, this.width = 250});
   final double? width;
   final double? height;
   @override

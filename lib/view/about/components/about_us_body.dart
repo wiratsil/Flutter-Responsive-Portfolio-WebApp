@@ -19,7 +19,7 @@ class AboutUsBody extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge
-                ?.copyWith(fontWeight: FontWeight.bold, fontSize: 60.0, color: Colors.white),
+                ?.copyWith(fontWeight: FontWeight.bold, fontSize: 40.0, color: Colors.white),
           )
               .animate()
               .fade(duration: const Duration(milliseconds: 500))

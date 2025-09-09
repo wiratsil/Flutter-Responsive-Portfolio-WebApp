@@ -14,10 +14,11 @@ class AnimatedDescriptionText extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       builder: (context, value, child) {
         return Text(
-          'I\'m capable of creating excellent mobile apps, handling${Responsive.isLargeMobile(context) ? '\n' : ''}every step from ${!Responsive.isLargeMobile(context) ? '\n' : ''}concept to deployment.',
+          'Crafting engaging cross-platform mobile apps with Flutter,\nand optimizing 2D/3D games with Unity, from concept to deployment.',
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(color: Colors.grey, wordSpacing: 2, fontSize: value),
+          style: TextStyle(
+              color: Colors.grey, wordSpacing: 1, fontSize: value * 0.9),
         );
       },
     );

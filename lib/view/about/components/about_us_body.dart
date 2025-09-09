@@ -19,11 +19,12 @@ class AboutUsBody extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+                ?.copyWith(fontWeight: FontWeight.bold, fontSize: 60.0, color: Colors.white),
           )
               .animate()
               .fade(duration: const Duration(milliseconds: 500))
-              .slide(begin: const Offset(-1, 0)),
+              .slide(begin: const Offset(-1, 0))
+              .shimmer(duration: const Duration(seconds: 2), color: Colors.white), // Added shimmer
           const SizedBox(height: defaultPadding / 2),
           Text(
             'FLUTTER AND UNITY DEVELOPER',
@@ -33,7 +34,14 @@ class AboutUsBody extends StatelessWidget {
               .fade(
                   duration: const Duration(milliseconds: 500),
                   delay: const Duration(milliseconds: 100))
-              .slide(begin: const Offset(-1, 0)),
+              .slide(begin: const Offset(-1, 0))
+              .blur(duration: const Duration(milliseconds: 500), begin: const Offset(10, 10), end: Offset.zero)
+              .animate()
+              .fade(
+                  duration: const Duration(milliseconds: 500),
+                  delay: const Duration(milliseconds: 100))
+              .slide(begin: const Offset(-1, 0))
+              .blur(duration: const Duration(milliseconds: 500), begin: const Offset(10, 10), end: Offset.zero), // Added blur
           const SizedBox(height: defaultPadding * 2),
           _buildSectionTitle(context, 'PROFESSIONAL SUMMARY')
               .animate()
@@ -63,6 +71,7 @@ class AboutUsBody extends StatelessWidget {
             'Programming Languages',
             'Proficient in a variety of languages for diverse development needs.',
             'C#, Dart, Java, Node.js, SQL, C++, HTML, CSS, Go',
+            iconPath: 'assets/icons/dart.png', // Added iconPath
           )
               .animate()
               .fade(
@@ -74,6 +83,7 @@ class AboutUsBody extends StatelessWidget {
             'Frameworks & Libraries',
             'Experienced with leading frameworks for efficient and robust development.',
             'Flutter, AR Foundation, Photon Network, React Native, MongoDB',
+            iconPath: 'assets/icons/flutter.png', // Added iconPath
           )
               .animate()
               .fade(
@@ -85,6 +95,7 @@ class AboutUsBody extends StatelessWidget {
             'Tools',
             'Adept at using industry-standard tools for streamlined workflows.',
             'Unity, Android Studio, Xcode, Visual Studio, GitHub, Sourcetree',
+            iconPath: 'assets/icons/bloc.png', // Added iconPath (example)
           )
               .animate()
               .fade(
@@ -230,7 +241,7 @@ class AboutUsBody extends StatelessWidget {
   }
 
   Widget _buildSkillCategory(BuildContext context, String category,
-      String description, String skills, {String? iconPath}) {
+      String description, String skills, {String? iconPath}) { // Modified signature
     return Padding(
       padding: const EdgeInsets.only(bottom: defaultPadding),
       child: Column(
@@ -238,7 +249,7 @@ class AboutUsBody extends StatelessWidget {
         children: [
           Row(
             children: [
-              if (iconPath != null) ...[
+              if (iconPath != null) ...[ // Added icon display logic
                 if (iconPath.endsWith('.svg'))
                   SvgPicture.asset(iconPath, height: 24, width: 24)
                 else

@@ -282,7 +282,7 @@ class AboutUsBody extends StatelessWidget {
                         left: defaultPadding, bottom: defaultPadding / 4),
                     child: Text('• $resp'),
                   ))
-              .toList(),
+              ,
         ],
       ),
     );

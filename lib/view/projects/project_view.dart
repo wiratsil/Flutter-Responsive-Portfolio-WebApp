@@ -18,10 +18,7 @@ class ProjectsView extends StatelessWidget {
           if(Responsive.isLargeMobile(context))const SizedBox(
             height: defaultPadding,
           ),
-          const TitleText(prefix: 'Latest', title: 'Projects').animate().fade(duration: const Duration(milliseconds: 500)).slide(begin: const Offset(0, -1)),
-          const SizedBox(
-            height: defaultPadding,
-          ),
+          
           Expanded(
               child: Responsive(
                   desktop: ProjectGrid(crossAxisCount: 3,),

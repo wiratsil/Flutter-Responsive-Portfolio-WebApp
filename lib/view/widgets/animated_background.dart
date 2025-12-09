@@ -74,21 +74,6 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
             );
           },
         ),
-        // Grid overlay for tech feel
-        Opacity(
-          opacity: 0.03,
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const NetworkImage(
-                  'data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M0%200h60v60H0V0zm1%201h58v58H1V1z%22%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.4%22%2F%3E%3C%2Fsvg%3E',
-                ),
-                repeat: ImageRepeat.repeat,
-                opacity: 0.5,
-              ),
-            ),
-          ),
-        ),
         // Glow orbs
         ..._buildGlowOrbs(context),
         // Content

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_portfolio/res/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AboutUsBody extends StatelessWidget {
@@ -28,10 +27,10 @@ class AboutUsBody extends StatelessWidget {
             title: 'PROFESSIONAL SUMMARY',
             delay: 200,
             child: const Text(
-              'Experienced Flutter and Unity Developer with over 6 years of experience in mobile app and game development. Proficient in creating and optimizing 2D/3D games using Unity, and developing cross-platform mobile applications using Flutter. Demonstrated ability to deliver high-quality products with several apps and games successfully published on Google Play and the App Store. Skilled in collaborating with teams to create seamless and engaging user experiences.',
+              'Experienced Flutter and Unity Developer with over 6 years of experience in mobile app and game development. Proficient in creating and optimizing 2D/3D games using Unity, and developing cross-platform mobile applications using Flutter. Demonstrated ability to deliver high-quality products with several apps and games successfully published on Google Play and the App Store.',
               style: TextStyle(
                 color: bodyTextColor,
-                height: 1.6,
+                height: 1.7,
                 fontSize: 15,
               ),
             ),
@@ -39,37 +38,75 @@ class AboutUsBody extends StatelessWidget {
 
           const SizedBox(height: spacingLG),
 
-          // Skills Section
+          // Skills Section - Clean chip style
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Flutter Skills
+              Expanded(
+                child: _buildSkillSection(
+                  context,
+                  'Flutter Development',
+                  FontAwesomeIcons.flutter,
+                  const Color(0xFF02569B),
+                  [
+                    'Flutter Framework',
+                    'Dart Language',
+                    'State Management',
+                    'GetX / Bloc / Provider',
+                    'Firebase Integration',
+                    'RESTful APIs',
+                    'Responsive Design',
+                    'Clean Architecture',
+                  ],
+                  delay: 400,
+                ),
+              ),
+              const SizedBox(width: spacingMD),
+              // Unity Skills
+              Expanded(
+                child: _buildSkillSection(
+                  context,
+                  'Unity Development',
+                  FontAwesomeIcons.unity,
+                  accentPurple,
+                  [
+                    'Unity Engine',
+                    'C# Programming',
+                    '2D/3D Game Dev',
+                    'AR Foundation',
+                    'Photon Network',
+                    'Game Optimization',
+                    'UI/UX for Games',
+                    'Physics & Animation',
+                  ],
+                  delay: 500,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: spacingLG),
+
+          // Other Skills
           _buildGlassCard(
             context,
             icon: FontAwesomeIcons.code,
-            title: 'SKILLS',
-            delay: 400,
-            child: Column(
+            title: 'OTHER TECHNOLOGIES',
+            delay: 600,
+            child: Wrap(
+              spacing: spacingSM,
+              runSpacing: spacingSM,
               children: [
-                _buildSkillRow(
-                    context,
-                    'Programming Languages',
-                    'C#, Dart, Java, Node.js, SQL, C++, HTML, CSS, Go',
-                    [accentPink, accentPurple]),
-                const SizedBox(height: spacingMD),
-                _buildSkillRow(
-                    context,
-                    'Frameworks & Libraries',
-                    'Flutter, AR Foundation, Photon Network, React Native, MongoDB',
-                    [accentBlue, accentCyan]),
-                const SizedBox(height: spacingMD),
-                _buildSkillRow(
-                    context,
-                    'Tools',
-                    'Unity, Android Studio, Xcode, Visual Studio, GitHub, Sourcetree',
-                    [accentPurple, accentPink]),
-                const SizedBox(height: spacingMD),
-                _buildSkillRow(
-                    context,
-                    'Languages',
-                    'Thai (Native), English (Beginner)',
-                    [accentCyan, accentBlue]),
+                _buildSkillChip('React Native', accentCyan),
+                _buildSkillChip('Node.js', const Color(0xFF339933)),
+                _buildSkillChip('MongoDB', const Color(0xFF47A248)),
+                _buildSkillChip('SQL', accentBlue),
+                _buildSkillChip('Git & GitHub', Colors.white70),
+                _buildSkillChip('Android Studio', const Color(0xFF3DDC84)),
+                _buildSkillChip('Xcode', accentBlue),
+                _buildSkillChip('Visual Studio', accentPurple),
+                _buildSkillChip('Figma', const Color(0xFFF24E1E)),
               ],
             ),
           ),
@@ -81,7 +118,7 @@ class AboutUsBody extends StatelessWidget {
             context,
             icon: FontAwesomeIcons.briefcase,
             title: 'EXPERIENCE',
-            delay: 600,
+            delay: 700,
             child: Column(
               children: [
                 _buildExperienceItem(
@@ -89,12 +126,14 @@ class AboutUsBody extends StatelessWidget {
                   'Digitopolis',
                   'Unity & Flutter Developer',
                   'Dec 2020 – Aug 2024',
+                  '3+ years',
                   [
-                    'Developed mobile applications and games using Flutter and Unity',
-                    'Designed user interfaces and core gameplay mechanics',
+                    'Developed mobile applications using Flutter: Insight wat pho, Thaiyarnyon, Museum, Good money',
+                    'Created games using Unity: Little monster home, Yimsamer logistic, Tracter Game',
+                    'Implemented augmented reality (AR) features for interactive experiences',
                     'Integrated RESTful APIs for backend communication',
-                    'Implemented augmented reality (AR) features',
                   ],
+                  [FontAwesomeIcons.flutter, FontAwesomeIcons.gamepad],
                 ),
                 const SizedBox(height: spacingMD),
                 _buildExperienceItem(
@@ -102,10 +141,13 @@ class AboutUsBody extends StatelessWidget {
                   'Atapy',
                   'Unity & React Native Developer',
                   'Mar 2019 – Nov 2020',
+                  '1.5 years',
                   [
-                    'Developed various games using Unity',
-                    'Collaborated with design teams on gameplay features',
+                    'Developed games: Pet Story, EN-Camp Power Plant, Little Slippies',
+                    'Built Squarepier App using React Native',
+                    'Collaborated with design teams on gameplay features and UI',
                   ],
+                  [FontAwesomeIcons.gamepad, FontAwesomeIcons.react],
                 ),
                 const SizedBox(height: spacingMD),
                 _buildExperienceItem(
@@ -113,10 +155,13 @@ class AboutUsBody extends StatelessWidget {
                   'Sanuk Games',
                   'Unity Developer',
                   'May 2018 – Feb 2019',
+                  '1 year',
                   [
                     'Integrated equipment features into Pro Fishing Simulator',
                     'Developed merge colliders tools for 3D game objects',
+                    'Worked on game mechanics and performance optimization',
                   ],
+                  [FontAwesomeIcons.gamepad],
                 ),
               ],
             ),
@@ -142,7 +187,7 @@ class AboutUsBody extends StatelessWidget {
                 _buildEducationItem(
                   context,
                   'Benchamabophit School',
-                  'Senior High School',
+                  'Senior High School - Art Society Program',
                   '2011 - 2013',
                 ),
               ],
@@ -167,6 +212,13 @@ class AboutUsBody extends StatelessWidget {
                 'GitHub',
                 FontAwesomeIcons.github,
                 'https://github.com/wiratsil',
+              ),
+              const SizedBox(width: spacingMD),
+              _buildLinkButton(
+                context,
+                'LinkedIn',
+                FontAwesomeIcons.linkedin,
+                'https://linkedin.com/in/wimutti-wiratsil',
               ),
             ],
           )
@@ -195,36 +247,78 @@ class AboutUsBody extends StatelessWidget {
           ),
         ).animate().fade(duration: animationMedium).slideX(begin: -0.3).shimmer(
             duration: const Duration(seconds: 2), color: Colors.white24),
-        const SizedBox(height: spacingSM),
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: spacingMD,
-            vertical: spacingSM,
-          ),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                accentPink.withValues(alpha: 0.2),
-                accentBlue.withValues(alpha: 0.2),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(radiusMD),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
-            ),
-          ),
-          child: Text(
-            'FLUTTER AND UNITY DEVELOPER',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white70,
-                  letterSpacing: 2,
-                ),
-          ),
+        const SizedBox(height: spacingMD),
+        Row(
+          children: [
+            _buildRoleBadge('Flutter Developer', const Color(0xFF02569B),
+                FontAwesomeIcons.flutter),
+            const SizedBox(width: spacingSM),
+            _buildRoleBadge(
+                'Unity Developer', accentPurple, FontAwesomeIcons.gamepad),
+          ],
         )
             .animate()
             .fade(delay: const Duration(milliseconds: 200))
             .slideX(begin: -0.3),
+        const SizedBox(height: spacingMD),
+        Row(
+          children: [
+            Icon(FontAwesomeIcons.locationDot, size: 14, color: bodyTextColor),
+            const SizedBox(width: spacingXS),
+            const Text(
+              'Bangkok, Thailand',
+              style: TextStyle(color: bodyTextColor, fontSize: 14),
+            ),
+            const SizedBox(width: spacingLG),
+            Icon(FontAwesomeIcons.briefcase, size: 14, color: bodyTextColor),
+            const SizedBox(width: spacingXS),
+            const Text(
+              '6+ Years Experience',
+              style: TextStyle(color: bodyTextColor, fontSize: 14),
+            ),
+          ],
+        )
+            .animate()
+            .fade(delay: const Duration(milliseconds: 300))
+            .slideX(begin: -0.3),
       ],
+    );
+  }
+
+  Widget _buildRoleBadge(String text, Color color, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: spacingMD,
+        vertical: spacingSM,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            color.withValues(alpha: 0.2),
+            color.withValues(alpha: 0.1),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(radiusMD),
+        border: Border.all(
+          color: color.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: color, size: 16),
+          const SizedBox(width: spacingXS),
+          Text(
+            text,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -285,39 +379,177 @@ class AboutUsBody extends StatelessWidget {
         .slideX(begin: -0.2);
   }
 
-  Widget _buildSkillRow(BuildContext context, String category, String skills,
-      List<Color> colors) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 4,
-              height: 20,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: colors),
-                borderRadius: BorderRadius.circular(radiusXS),
-              ),
+  Widget _buildSkillSection(BuildContext context, String title, IconData icon,
+      Color color, List<String> skills,
+      {int delay = 0}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radiusLG),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          padding: const EdgeInsets.all(spacingLG),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.03),
+            borderRadius: BorderRadius.circular(radiusLG),
+            border: Border.all(
+              color: color.withValues(alpha: 0.2),
             ),
-            const SizedBox(width: spacingSM),
-            Text(
-              category,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(spacingSM),
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(radiusSM),
+                    ),
+                    child: Icon(icon, color: color, size: 18),
                   ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: spacingMD + 4),
-          child: Text(
-            skills,
-            style: const TextStyle(color: bodyTextColor, height: 1.5),
+                  const SizedBox(width: spacingSM),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: color,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: spacingLG),
+              // Skills as chips
+              Wrap(
+                spacing: spacingSM,
+                runSpacing: spacingSM,
+                children: skills
+                    .map((skill) => _buildCleanSkillChip(skill, color))
+                    .toList(),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
+    )
+        .animate()
+        .fade(delay: Duration(milliseconds: delay), duration: animationMedium)
+        .slideY(begin: 0.2);
+  }
+
+  Widget _buildSkillSectionWithImage(BuildContext context, String title,
+      String imagePath, Color color, List<String> skills,
+      {int delay = 0}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radiusLG),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          padding: const EdgeInsets.all(spacingLG),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.03),
+            borderRadius: BorderRadius.circular(radiusLG),
+            border: Border.all(
+              color: color.withValues(alpha: 0.2),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(spacingSM),
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(radiusSM),
+                    ),
+                    child: Image.asset(imagePath, width: 18, height: 18),
+                  ),
+                  const SizedBox(width: spacingSM),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: color,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: spacingLG),
+              // Skills as chips
+              Wrap(
+                spacing: spacingSM,
+                runSpacing: spacingSM,
+                children: skills
+                    .map((skill) => _buildCleanSkillChip(skill, color))
+                    .toList(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+        .animate()
+        .fade(delay: Duration(milliseconds: delay), duration: animationMedium)
+        .slideY(begin: 0.2);
+  }
+
+  Widget _buildCleanSkillChip(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: spacingMD,
+        vertical: spacingSM,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(radiusMD),
+        border: Border.all(
+          color: color.withValues(alpha: 0.15),
+        ),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: color.withValues(alpha: 0.9),
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkillChip(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: spacingMD,
+        vertical: spacingSM,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(radiusLG),
+        border: Border.all(
+          color: color.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: color,
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 
@@ -326,7 +558,9 @@ class AboutUsBody extends StatelessWidget {
     String company,
     String role,
     String date,
+    String duration,
     List<String> responsibilities,
+    List<IconData> icons,
   ) {
     return Container(
       padding: const EdgeInsets.all(spacingMD),
@@ -339,60 +573,94 @@ class AboutUsBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          company,
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                        ),
+                        const SizedBox(width: spacingSM),
+                        ...icons.map((icon) => Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Icon(
+                                icon,
+                                size: 14,
+                                color: icon == FontAwesomeIcons.flutter
+                                    ? const Color(0xFF02569B)
+                                    : icon == FontAwesomeIcons.gamepad
+                                        ? accentPurple
+                                        : accentCyan,
+                              ),
+                            )),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      role,
+                      style: const TextStyle(
+                        color: accentCyan,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    company,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                  ),
-                  Text(
-                    role,
+                    date,
                     style: TextStyle(
-                      color: accentPink.withValues(alpha: 0.8),
-                      fontSize: 13,
+                      color: bodyTextColor.withValues(alpha: 0.8),
+                      fontSize: 12,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: spacingSM,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: accentBlue.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(radiusSM),
+                    ),
+                    child: Text(
+                      duration,
+                      style: const TextStyle(
+                        color: accentBlue,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: spacingSM,
-                  vertical: spacingXS,
-                ),
-                decoration: BoxDecoration(
-                  color: accentBlue.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(radiusSM),
-                ),
-                child: Text(
-                  date,
-                  style: const TextStyle(
-                    color: accentCyan,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
             ],
           ),
-          const SizedBox(height: spacingSM),
+          const SizedBox(height: spacingMD),
           ...responsibilities.map((resp) => Padding(
                 padding: const EdgeInsets.only(bottom: spacingXS),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 6),
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        gradient: glowGradient,
-                        shape: BoxShape.circle,
+                    const Text(
+                      '•',
+                      style: TextStyle(
+                        color: accentCyan,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(width: spacingSM),
@@ -453,6 +721,7 @@ class AboutUsBody extends StatelessWidget {
                         color: Colors.white,
                       ),
                 ),
+                const SizedBox(height: 2),
                 Text(
                   degree,
                   style: const TextStyle(color: bodyTextColor, fontSize: 13),
@@ -460,22 +729,11 @@ class AboutUsBody extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: spacingSM,
-              vertical: spacingXS,
-            ),
-            decoration: BoxDecoration(
-              color: accentPurple.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(radiusSM),
-            ),
-            child: Text(
-              year,
-              style: TextStyle(
-                color: accentPurple.withValues(alpha: 0.8),
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-              ),
+          Text(
+            year,
+            style: TextStyle(
+              color: bodyTextColor.withValues(alpha: 0.7),
+              fontSize: 12,
             ),
           ),
         ],
@@ -569,5 +827,3 @@ class _HoverLinkButtonState extends State<_HoverLinkButton> {
     );
   }
 }
-
-const double radiusXS = 4.0;

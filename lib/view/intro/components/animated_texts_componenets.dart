@@ -1,81 +1,111 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../res/constants.dart';
 import '../../../view model/responsive.dart';
 
 class AnimatedImageContainer extends StatefulWidget {
-  const AnimatedImageContainer({super.key, this.height = 300, this.width = 250});
+  const AnimatedImageContainer(
+      {super.key, this.height = 350, this.width = 280});
   final double? width;
   final double? height;
+
   @override
   AnimatedImageContainerState createState() => AnimatedImageContainerState();
 }
+
 class AnimatedImageContainerState extends State<AnimatedImageContainer>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+    with TickerProviderStateMixin {
+  late AnimationController _floatController;
+  late AnimationController _glowController;
+
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _floatController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..repeat(reverse: true); // Repeat the animation loop
+      duration: const Duration(milliseconds: 2000),
+    )..repeat(reverse: true);
+
+    _glowController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat();
   }
+
   @override
   void dispose() {
-    _controller.dispose();
+    _floatController.dispose();
+    _glowController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _controller,
+      animation: Listenable.merge([_floatController, _glowController]),
       builder: (context, child) {
-        final value = _controller.value;
+        final floatValue = _floatController.value;
+        final glowValue = _glowController.value;
+
         return Transform.translate(
-          offset: Offset(0, 2 * value), // Move the container up and down
+          offset: Offset(0, 8 * math.sin(floatValue * math.pi)),
           child: Container(
             height: widget.height!,
             width: widget.width!,
-            padding: const EdgeInsets.all(defaultPadding / 4),
+            padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              gradient: const LinearGradient(colors: [
-                Colors.pinkAccent,
-                Colors.blue,
-              ]),
-              boxShadow: const [
+              borderRadius: BorderRadius.circular(radiusXXL),
+              gradient: SweepGradient(
+                colors: const [
+                  accentPink,
+                  accentPurple,
+                  accentBlue,
+                  accentCyan,
+                  accentPink,
+                ],
+                transform: GradientRotation(glowValue * 2 * math.pi),
+              ),
+              boxShadow: [
                 BoxShadow(
-                  color: Colors.pink,
-                  offset: Offset(-2, 0),
-                  blurRadius: 20,
+                  color: accentPink.withValues(alpha: 0.4),
+                  offset: const Offset(-5, 0),
+                  blurRadius: 30,
                 ),
                 BoxShadow(
-                  color: Colors.blue,
-                  offset: Offset(2, 0),
-                  blurRadius: 20,
+                  color: accentBlue.withValues(alpha: 0.4),
+                  offset: const Offset(5, 0),
+                  blurRadius: 30,
+                ),
+                BoxShadow(
+                  color: accentPurple.withValues(alpha: 0.2),
+                  offset: const Offset(0, 10),
+                  blurRadius: 40,
                 ),
               ],
             ),
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(30),
+                color: bgColor,
+                borderRadius: BorderRadius.circular(radiusXXL - 2),
               ),
-              child: Image.asset(
-                'assets/images/image.png',
-                height: Responsive.isLargeMobile(context)
-                    ? MediaQuery.sizeOf(context).width * 0.2
-                    : Responsive.isTablet(context)
-                        ? MediaQuery.sizeOf(context).width * 0.14
-                        : 200,
-                width: Responsive.isLargeMobile(context)
-                    ? MediaQuery.sizeOf(context).width * 0.2
-                    : Responsive.isTablet(context)
-                        ? MediaQuery.sizeOf(context).width * 0.14
-                        : 200,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(radiusXXL - 4),
+                child: Image.asset(
+                  'assets/images/profile.png',
+                  height: Responsive.isLargeMobile(context)
+                      ? MediaQuery.sizeOf(context).width * 0.25
+                      : Responsive.isTablet(context)
+                          ? MediaQuery.sizeOf(context).width * 0.16
+                          : 250,
+                  width: Responsive.isLargeMobile(context)
+                      ? MediaQuery.sizeOf(context).width * 0.25
+                      : Responsive.isTablet(context)
+                          ? MediaQuery.sizeOf(context).width * 0.16
+                          : 250,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

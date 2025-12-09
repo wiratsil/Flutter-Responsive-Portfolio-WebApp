@@ -10,6 +10,7 @@ class ProjectStack extends StatelessWidget {
   final controller = Get.put(ProjectController());
   ProjectStack({super.key, required this.index});
   final int index;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -17,16 +18,19 @@ class ProjectStack extends StatelessWidget {
         controller.onHover(index, value);
       },
       onTap: () {
-        ImageViewer(context,projectList[index].image);
+        ImageViewer(context, projectList[index].image);
       },
-      borderRadius: BorderRadius.circular(30),
-      child: AnimatedContainer(
-          padding: const EdgeInsets.only(left: defaultPadding,right: defaultPadding,top: defaultPadding),
+      borderRadius: BorderRadius.circular(radiusXL),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radiusXL),
+        child: Container(
+          padding: const EdgeInsets.all(defaultPadding),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: bgColor),
-          duration: const Duration(milliseconds: 500),
-          child: ProjectDetail(index: index,),
+            borderRadius: BorderRadius.circular(radiusXL),
+            color: Colors.transparent,
+          ),
+          child: ProjectDetail(index: index),
+        ),
       ),
     );
   }

@@ -1,48 +1,120 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../res/constants.dart';
 
-class DownloadButton extends StatelessWidget {
+class DownloadButton extends StatefulWidget {
   const DownloadButton({super.key});
+
+  @override
+  State<DownloadButton> createState() => _DownloadButtonState();
+}
+
+class _DownloadButtonState extends State<DownloadButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: animationFast,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onHover(bool isHovered) {
+    setState(() => _isHovered = isHovered);
+    if (isHovered) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        launchUrl(Uri.parse('https://drive.google.com/file/d/1HSIe7rdk8VtrAL4DQuybfMHQgDrQ6xNs/view?usp=sharing'));
-      },
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(vertical: defaultPadding/1.5,horizontal: defaultPadding*2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-            boxShadow:const [
-              BoxShadow(color: Colors.blue,offset: Offset(0, -1),blurRadius: 5),
-              BoxShadow(color: Colors.red,offset: Offset(0, 1),blurRadius: 5),
-            ],
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.pink,
-                Colors.blue.shade900,
-              ]),
-        ),
-        child: Row(
-          children: [
-            Text(
-              'Download CV',
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: Colors.white,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold),
+    return MouseRegion(
+      onEnter: (_) => _onHover(true),
+      onExit: (_) => _onHover(false),
+      child: AnimatedBuilder(
+        animation: _scaleAnimation,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: _scaleAnimation.value,
+            child: InkWell(
+              onTap: () {
+                launchUrl(Uri.parse(
+                    'https://drive.google.com/file/d/1HSIe7rdk8VtrAL4DQuybfMHQgDrQ6xNs/view?usp=sharing'));
+              },
+              borderRadius: BorderRadius.circular(radiusXL),
+              child: AnimatedContainer(
+                duration: animationMedium,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(
+                  vertical: spacingMD,
+                  horizontal: spacingXL,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(radiusXL),
+                  gradient: glowGradient,
+                  boxShadow: [
+                    BoxShadow(
+                      color:
+                          accentPink.withValues(alpha: _isHovered ? 0.6 : 0.3),
+                      blurRadius: _isHovered ? 30 : 15,
+                      offset: const Offset(0, 4),
+                    ),
+                    BoxShadow(
+                      color:
+                          accentBlue.withValues(alpha: _isHovered ? 0.4 : 0.2),
+                      blurRadius: _isHovered ? 30 : 15,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Download CV',
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                            color: Colors.white,
+                            letterSpacing: 1.2,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(width: spacingSM),
+                    AnimatedContainer(
+                      duration: animationMedium,
+                      transform: Matrix4.translationValues(
+                        0,
+                        _isHovered ? 2 : 0,
+                        0,
+                      ),
+                      child: const Icon(
+                        FontAwesomeIcons.download,
+                        color: Colors.white,
+                        size: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            const SizedBox(width: defaultPadding/3,),
-            const Icon(FontAwesomeIcons.download,color: Colors.white70,size: 15,)
-
-          ],
-        ),
+          );
+        },
       ),
     );
   }

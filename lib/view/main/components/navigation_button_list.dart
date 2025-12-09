@@ -1,26 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portfolio/view%20model/controller.dart';
 import 'package:flutter_portfolio/view%20model/responsive.dart';
-
+import '../../../res/constants.dart';
 import 'navigation_button.dart';
 
 class NavigationButtonList extends StatelessWidget {
   const NavigationButtonList({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return  TweenAnimationBuilder(tween: Tween(begin: 0.0,end: 1.0), duration: const Duration(milliseconds: 200), builder: (context, value, child) {
-      return Transform.scale(
-        scale: value,
-        child: Row(
-          children: [
-            NavigationTextButton(onTap: () {controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);}, text: 'Home'),
-            NavigationTextButton(onTap: () {controller.animateToPage(1, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);}, text: 'About'),
-            NavigationTextButton(onTap: () {controller.animateToPage(2, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);}, text: 'Projects'),
-            NavigationTextButton(onTap: () {controller.animateToPage(3, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);}, text: 'Certifications'),
-            // NavigationTextButton(onTap: () {}, text: 'Achievements'),
-          ],
-        ),
-      );
-    },);
+    return TweenAnimationBuilder(
+      tween: Tween(begin: 0.0, end: 1.0),
+      duration: const Duration(milliseconds: 400),
+      builder: (context, value, child) {
+        return Transform.scale(
+          scale: value,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: spacingMD,
+              vertical: spacingSM,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.03),
+              borderRadius: BorderRadius.circular(radiusXL),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.05),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildNavButton(context, 0, 'Home', Icons.home_rounded),
+                _buildNavButton(context, 1, 'About', Icons.person_rounded),
+                _buildNavButton(context, 2, 'Projects', Icons.work_rounded),
+                _buildNavButton(
+                    context, 3, 'Certifications', Icons.verified_rounded),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildNavButton(
+      BuildContext context, int index, String text, IconData icon) {
+    return NavigationTextButton(
+      onTap: () {
+        controller.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      },
+      text: text,
+      icon: Responsive.isTablet(context) ? null : icon,
+    );
   }
 }

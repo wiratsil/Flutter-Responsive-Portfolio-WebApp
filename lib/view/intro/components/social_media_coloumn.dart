@@ -10,12 +10,29 @@ class SocialMediaIconColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SocialMediaIcon(icon: 'assets/icons/linkedin.svg',onTap: ()=>launchUrl(Uri.parse('https://www.linkedin.com/in/hamad-anwar/'))),
-        SocialMediaIcon(icon: 'assets/icons/github.svg',onTap: () => launchUrl(Uri.parse('https://github.com/Hamad-Anwar')),),
-        const SocialMediaIcon(icon: 'assets/icons/dribble.svg',),
-        const SocialMediaIcon(icon: 'assets/icons/twitter.svg'),
-        const SocialMediaIcon(icon: 'assets/icons/linkedin.svg'),
-      ].animate(interval: const Duration(milliseconds: 200)).fade(duration: const Duration(milliseconds: 500)).slide(begin: const Offset(0, 1)),
+        SocialMediaIcon(
+          icon: 'assets/icons/linkedin.svg',
+          onTap: () => launchUrl(
+              Uri.parse('https://www.linkedin.com/in/wimutti-wiratsil/')),
+          hoverColor: const Color(0xFF0A66C2),
+        ),
+        SocialMediaIcon(
+          icon: 'assets/icons/github.svg',
+          onTap: () => launchUrl(Uri.parse('https://github.com/wiratsil')),
+          hoverColor: Colors.white,
+        ),
+        const SocialMediaIcon(
+          icon: 'assets/icons/dribble.svg',
+          hoverColor: Color(0xFFEA4C89),
+        ),
+        const SocialMediaIcon(
+          icon: 'assets/icons/twitter.svg',
+          hoverColor: Color(0xFF1DA1F2),
+        ),
+      ]
+          .animate(interval: const Duration(milliseconds: 150))
+          .fade(duration: const Duration(milliseconds: 400))
+          .slide(begin: const Offset(0, 0.5)),
     );
   }
 }

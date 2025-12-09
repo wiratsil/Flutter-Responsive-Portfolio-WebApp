@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portfolio/view/intro/components/subtitle_text.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import '../../../res/constants.dart';
 import '../../../view model/responsive.dart';
 
 class CombineSubtitleText extends StatelessWidget {
@@ -13,68 +14,56 @@ class CombineSubtitleText extends StatelessWidget {
       children: [
         const Responsive(
           desktop: AnimatedSubtitleText(
-              start: 30, end: 40, text: 'Flutter & Unity '),
-          largeMobile: AnimatedSubtitleText(
-              start: 30, end: 25, text: 'Flutter & Unity '),
-          mobile: AnimatedSubtitleText(
-              start: 25, end: 20, text: 'Flutter & Unity '),
-          tablet: AnimatedSubtitleText(
-              start: 40, end: 30, text: 'Flutter & Unity '),
-        ),
-        (kIsWeb && Responsive.isLargeMobile(context)
-            ? const Responsive(
-          desktop: AnimatedSubtitleText(
-              start: 30,
-              end: 40,
-              text: 'Developer',
-              gradient: true),
-          largeMobile: AnimatedSubtitleText(
-              start: 30,
-              end: 25,
-              text: 'Developer',
-              gradient: true),
-          mobile: AnimatedSubtitleText(
-              start: 25,
-              end: 20,
-              text: 'Developer',
-              gradient: true),
-          tablet: AnimatedSubtitleText(
-              start: 40,
-              end: 30,
-              text: 'Developer',
-              gradient: true),
-        )
-            : ShaderMask(
-          shaderCallback: (bounds) {
-            return const LinearGradient(colors: [
-              Colors.pink,
-              Colors.blue,
-            ]).createShader(bounds);
-          },
-          child: const Responsive(
-            desktop: AnimatedSubtitleText(
-                start: 30,
-                end: 40,
-                text: 'Developer',
-                gradient: false),
-            largeMobile: AnimatedSubtitleText(
-                start: 30,
-                end: 25,
-                text: 'Developer',
-                gradient: false),
-            mobile: AnimatedSubtitleText(
-                start: 25,
-                end: 20,
-                text: 'Developer',
-                gradient: true),
-            tablet: AnimatedSubtitleText(
-                start: 40,
-                end: 30,
-                text: 'Developer',
-                gradient: false),
+            start: 30,
+            end: 40,
+            text: 'Flutter & Unity ',
           ),
-        ))
+          largeMobile: AnimatedSubtitleText(
+            start: 30,
+            end: 25,
+            text: 'Flutter & Unity ',
+          ),
+          mobile: AnimatedSubtitleText(
+            start: 25,
+            end: 20,
+            text: 'Flutter & Unity ',
+          ),
+          tablet: AnimatedSubtitleText(
+            start: 40,
+            end: 30,
+            text: 'Flutter & Unity ',
+          ),
+        ),
+        ShaderMask(
+          shaderCallback: (bounds) {
+            return const LinearGradient(
+              colors: [
+                accentPink,
+                accentPurple,
+                accentBlue,
+              ],
+            ).createShader(bounds);
+          },
+          child: Responsive(
+            desktop: _buildDeveloperText(40),
+            largeMobile: _buildDeveloperText(25),
+            mobile: _buildDeveloperText(20),
+            tablet: _buildDeveloperText(30),
+          ),
+        ),
       ],
+    );
+  }
+
+  Widget _buildDeveloperText(double fontSize) {
+    return Text(
+      'Developer',
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        letterSpacing: 1,
+      ),
     );
   }
 }

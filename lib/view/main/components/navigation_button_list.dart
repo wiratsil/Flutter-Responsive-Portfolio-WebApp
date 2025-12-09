@@ -33,8 +33,6 @@ class NavigationButtonList extends StatelessWidget {
                 _buildNavButton(context, 0, 'Home', Icons.home_rounded),
                 _buildNavButton(context, 1, 'About', Icons.person_rounded),
                 _buildNavButton(context, 2, 'Projects', Icons.work_rounded),
-                _buildNavButton(
-                    context, 3, 'Certifications', Icons.verified_rounded),
               ],
             ),
           ),

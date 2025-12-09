@@ -8,6 +8,7 @@ import 'combine_subtitle.dart';
 import 'description_text.dart';
 import 'download_button.dart';
 import 'headline_text.dart';
+import 'side_menu_button.dart';
 
 class IntroBody extends StatelessWidget {
   const IntroBody({super.key});
@@ -16,19 +17,36 @@ class IntroBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
 
-    return Center(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Responsive.isDesktop(context)
-                ? size.width * 0.08
-                : defaultPadding,
+    return Stack(
+      children: [
+        // Main content centered
+        Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Responsive.isDesktop(context)
+                    ? size.width * 0.08
+                    : defaultPadding,
+              ),
+              child: Responsive.isDesktop(context)
+                  ? _buildDesktopLayout(context, size)
+                  : _buildMobileLayout(context, size),
+            ),
           ),
-          child: Responsive.isDesktop(context)
-              ? _buildDesktopLayout(context, size)
-              : _buildMobileLayout(context, size),
         ),
-      ),
+        // Menu button at top-left
+        if (!Responsive.isLargeMobile(context))
+          Positioned(
+            left: size.width * 0.02,
+            top: size.height * 0.4,
+            child: MenuButton(
+              onTap: () => Scaffold.of(context).openDrawer(),
+            )
+                .animate()
+                .fade(duration: const Duration(milliseconds: 500))
+                .slideX(begin: -0.5),
+          ),
+      ],
     );
   }
 
